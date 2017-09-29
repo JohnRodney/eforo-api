@@ -37,14 +37,16 @@ export default function testGetItems(eforo) {
     });
 
     it('should return a resolved promise if options are correct', (done) => {
-      eforo.getItems({ status: eforo.constants.STATUS.IN_QUEUE }).then((res) => {
+      const getItems = proxyquire('../../src/methods/get-items', { 'request-promise': () => Promise.resolve(response) }).default;
+      getItems.call(eforo, { status: eforo.constants.STATUS.IN_QUEUE }).then((res) => {
         assert.ok(JSON.stringify(res) === JSON.stringify(response), 'should recieve the stub response');
         done();
       }).catch(err => done(err));
     });
 
     it('should set the passed options on options.qs', (done) => {
-      eforo.getItems({ status: eforo.constants.STATUS.IN_QUEUE }).then(() => {
+      const getItems = proxyquire('../../src/methods/get-items', { 'request-promise': () => Promise.resolve(response) }).default;
+      getItems.call(eforo, { status: eforo.constants.STATUS.IN_QUEUE }).then(() => {
         assert.ok(eforo.options.qs.status === eforo.constants.STATUS.IN_QUEUE, 'options.qs.status should be set');
         done();
       }).catch(err => done(err));
@@ -53,11 +55,9 @@ export default function testGetItems(eforo) {
     it('should reject with error if request-promise fails', (done) => {
       const { IN_QUEUE } = eforo.constants.STATUS;
       const sampleErr = { err: 'a sample err' };
-      const Eforo = proxyquire('../../src/index.js', { 'request-promise': () => Promise.reject(sampleErr) }).default;
-      const ef = new Eforo();
-      ef.setup('token');
+      const getItems = proxyquire('../../src/methods/get-items', { 'request-promise': () => Promise.reject(sampleErr) }).default;
 
-      ef.getItems({ status: IN_QUEUE }).catch((err) => {
+      getItems.call(eforo, { status: IN_QUEUE }).catch((err) => {
         assert.ok(JSON.stringify(sampleErr) === JSON.stringify(err));
         done();
       }).catch(err => done(err));
