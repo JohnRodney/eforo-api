@@ -1,0 +1,24 @@
+{
+  "name": "eforo-api",
+  "version": "1.0.0",
+  "description": "Project generated automatically insert description here before publishing",
+  "main": "./dist/src/index.js",
+  "repository": "Your Git URL",
+  "scripts": {
+    "test": "babel ./tests/index.test.js -o ./tests/temp.js && ./node_modules/mocha/bin/mocha ./tests/temp.js && rm ./tests/temp.js && eslint ./src || exit 0 ",
+    "dev-compiler": "babel -w . --ignore node_modules,dist,tests --out-dir dist",
+    "dev-server": "forever -w ./dist/src/index.js node ./dist/src/index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "request": "^2.83.0",
+    "request-promise": "^4.2.2"
+  },
+  "devDependencies": {
+    "babel-preset-env": "^1.6.0",
+    "chai": "^4.1.2",
+    "mocha": "^3.5.3",
+    "proxyquire": "^1.8.0"
+  }
+}
