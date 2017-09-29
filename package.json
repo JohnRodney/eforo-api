@@ -5,8 +5,8 @@
   "main": "./dist/src/index.js",
   "repository": "Your Git URL",
   "scripts": {
-    "test": "babel ./tests/index.test.js -o ./tests/temp.js && ./node_modules/mocha/bin/mocha ./tests/temp.js && rm ./tests/temp.js && eslint ./src || exit 0 ",
-    "dev-compiler": "babel -w . --ignore node_modules,dist,tests --out-dir dist",
+    "test": "node_modules/.bin/nyc --all --require babel-core/register --reporter=lcov node_modules/.bin/mocha ./tests && eslint ./src || exit 0",
+    "dev-compiler": "babel -w . --ignore coverage,node_modules,dist,tests,temp --out-dir dist",
     "dev-server": "forever -w ./dist/src/index.js node ./dist/src/index.js"
   },
   "author": "",
@@ -16,9 +16,25 @@
     "request-promise": "^4.2.2"
   },
   "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-eslint": "^8.0.1",
     "babel-preset-env": "^1.6.0",
     "chai": "^4.1.2",
+    "eslint": "^4.7.2",
+    "eslint-config-airbnb": "^15.1.0",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-jsx-a11y": "^6.0.2",
+    "eslint-plugin-react": "^7.4.0",
+    "istanbul": "^0.4.5",
     "mocha": "^3.5.3",
+    "nyc": "^11.2.1",
     "proxyquire": "^1.8.0"
+  },
+  "nyc": {
+    "exclude": [
+      "dist",
+      "tests",
+      "coverage"
+    ]
   }
 }
