@@ -4,7 +4,7 @@ import { assert } from 'chai';
 import response from '../utils/sample-rp-response';
 
 export default function testGetItems(eforo) {
-  describe('getItems public method', () => {
+  describe('Eforo: getItems (method)', () => {
     it('should fail when passed null', (done) => {
       eforo.getItems(null).then((res) => {
         assert.ok(!res, 'promise was not rejected on incorrect data passed to function');

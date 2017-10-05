@@ -2,7 +2,7 @@ import mocha from 'mocha';
 import { assert } from 'chai';
 
 export default function testOptions(eforo, sampleApiKey) {
-  describe('Eforo: default options', () => {
+  describe('Eforo: options (property)', () => {
     it('should setup default options', () => {
       assert.ok(eforo.options);
     });

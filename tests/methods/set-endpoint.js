@@ -2,7 +2,7 @@ import mocha from 'mocha';
 import { assert } from 'chai';
 
 export default function testSetEndPoint(eforo) {
-  describe('Eforo: setEndpoint', () => {
+  describe('Eforo: setEndpoint (method)', () => {
     it('should change the uri in options', () => {
       eforo.setEndpoint('add_item');
       assert.ok(eforo.options.uri.indexOf('add_item') > -1, 'eforo.options.uri should contain "add_item"');
